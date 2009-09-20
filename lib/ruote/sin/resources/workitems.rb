@@ -25,24 +25,9 @@
 
 class Ruote::Sin::App
 
-  get '/processes' do
+  get '/workitems' do
 
-    'all processes'
-  end
-
-  post '/processes' do
-
-    'a new process'
-  end
-
-  get '/processes/:wfid' do
-
-    'that process'
-  end
-
-  get '/processes/:wfid/errors' do
-
-    'that process\'s errors'
+    'all the workitems'
   end
 end
 
