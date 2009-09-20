@@ -10,9 +10,9 @@ $:.unshift(sin_lib) unless $:.include?(sin_lib)
 
 #require 'rubygems'
 
-require 'ruote/sin/app'
-require 'bacon'
+require 'test/unit'
 require 'rack/test'
+require 'ruote/sin/app'
 
 set :environment, :test
 
