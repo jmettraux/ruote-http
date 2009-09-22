@@ -22,44 +22,10 @@
 # Made in Japan.
 #++
 
-require 'sinatra'
-require 'ruote/sin/engine'
-
-
 module Ruote
 module Sin
 
-  class App < Sinatra::Base
-
-    set :environment, defined?(ENVIRONMENT) ? ENVIRONMENT : :production
-
-    sin_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
-
-    #
-    # set root
-
-    set(:root, File.join(sin_dir, 'www'))
-
-    #
-    # load conf
-
-    conf_dir = File.join(sin_dir, 'conf')
-
-    confs = Dir[File.join(conf_dir, '*.rb')]
-
-    common_conf = confs.find { |path| path.match(/common\.rb$/) }
-    confs.delete(common_conf)
-    confs << common_conf
-
-    confs.each { |path| eval(File.read(path)) }
-
-    #
-    # load resources code
-
-    res_dir = File.join(sin_dir, *%w[ lib ruote sin resources ])
-
-    Dir[File.join(res_dir, '*.rb')].each { |path| load(path) }
-  end
+  # ...
 end
 end
 

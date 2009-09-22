@@ -12,7 +12,8 @@ $:.unshift(sin_lib) unless $:.include?(sin_lib)
 
 require 'test/unit'
 require 'rack/test'
-require 'ruote/sin/app'
 
-set :environment, :test
+ENVIRONMENT = :test
+
+require 'ruote/sin/app'
 
