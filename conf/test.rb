@@ -1,5 +1,8 @@
 
 configure :test do
-  p :test
+
+  set( :engine_options, {
+    :work_directory => 'work_test'
+  })
 end
 

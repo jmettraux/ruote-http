@@ -23,7 +23,6 @@
 #++
 
 require 'sinatra'
-require 'ruote/sin/engine'
 
 
 module Ruote
@@ -52,6 +51,13 @@ module Sin
     confs << common_conf
 
     confs.each { |path| eval(File.read(path)) }
+
+    #
+    # initialize engine
+
+    Engine = engine_class.new(engine_options)
+
+    p Engine.context[:work_directory]
 
     #
     # load resources code

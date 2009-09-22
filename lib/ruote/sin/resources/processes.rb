@@ -27,7 +27,9 @@ class Ruote::Sin::App
 
   get '/processes' do
 
-    'all processes'
+    ps = Engine.processes
+
+    "processes : #{ps.size}"
   end
 
   post '/processes' do
