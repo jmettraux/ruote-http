@@ -1,9 +1,6 @@
-# this configuration is evaluated last
+# common configuration (evaluated last)
 
 require 'ruote/engine/fs_engine'
 
-configure do
-
-  set :engine_class, Ruote::FsPersistedEngine
-end
+set :engine_class, Ruote::FsPersistedEngine
 

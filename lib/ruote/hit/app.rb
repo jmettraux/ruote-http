@@ -32,37 +32,37 @@ module Sin
 
     set :environment, defined?(ENVIRONMENT) ? ENVIRONMENT : :production
 
-    sin_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
+    hit_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
 
     #
     # set root
 
-    set(:root, File.join(sin_dir, 'www'))
+    set(:root, File.join(hit_dir, 'www'))
 
     #
     # load conf
 
-    conf_dir = File.join(sin_dir, 'conf')
+    conf_dir = File.join(hit_dir, 'conf')
 
-    confs = Dir[File.join(conf_dir, '*.rb')]
-
-    common_conf = confs.find { |path| path.match(/common\.rb$/) }
-    confs.delete(common_conf)
-    confs << common_conf
-
-    confs.each { |path| eval(File.read(path)) }
+    [
+      File.join(conf_dir, "#{environment}.rb"),
+      File.join(conf_dir, 'common.rb')
+    ].each { |path| configure { eval(File.read(path)) } }
 
     #
     # initialize engine
 
     Engine = engine_class.new(engine_options)
 
-    p Engine.context[:work_directory]
+    #
+    # participants
+
+    # TODO
 
     #
     # load resources code
 
-    res_dir = File.join(sin_dir, *%w[ lib ruote sin resources ])
+    res_dir = File.join(hit_dir, *%w[ lib ruote hit resources ])
 
     Dir[File.join(res_dir, '*.rb')].each { |path| load(path) }
   end

@@ -1,4 +1,2 @@
-
-configure :production do
-end
+# production configuration
 

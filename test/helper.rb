@@ -5,8 +5,8 @@
 # Thu Sep 10 22:40:26 JST 2009
 #
 
-sin_lib = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
-$:.unshift(sin_lib) unless $:.include?(sin_lib)
+hit_lib = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(hit_lib) unless $:.include?(hit_lib)
 
 ruote_lib = File.expand_path(File.join(%w[ ~ w ruota lib ]))
 $:.unshift(ruote_lib) unless $:.include?(ruote_lib)
@@ -18,5 +18,5 @@ require 'rack/test'
 
 ENVIRONMENT = :test
 
-require 'ruote/sin/app'
+require 'ruote/hit/app'
 
