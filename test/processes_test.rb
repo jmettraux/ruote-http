@@ -1,6 +1,6 @@
 
 #
-# testing ruote-sin
+# testing ruote-http
 #
 # Thu Sep 10 22:42:59 JST 2009
 #
@@ -12,7 +12,7 @@ class ProcessesTest < Test::Unit::TestCase
 
   def app
 
-    Ruote::Sin::App
+    Ruote::Http::App
   end
 
   def test_processes

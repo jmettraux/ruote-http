@@ -23,7 +23,7 @@
 #++
 
 
-class Ruote::Sin::App
+class Ruote::Http::App
 
   get '/' do
 

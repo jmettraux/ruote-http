@@ -1,7 +1,7 @@
 
 $:.unshift('lib')
 
-require 'ruote/sin/app'
+require 'ruote/http/app'
 
-Ruote::Sin::App.run!
+Ruote::Http::App.run!
 

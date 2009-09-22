@@ -1,6 +1,6 @@
 
 #
-# testing ruote-sin
+# testing ruote-http
 #
 # Thu Sep 10 22:52:52 JST 2009
 #

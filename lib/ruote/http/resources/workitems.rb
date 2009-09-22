@@ -22,50 +22,12 @@
 # Made in Japan.
 #++
 
-require 'sinatra'
 
+class Ruote::Http::App
 
-module Ruote
-module Sin
+  get '/workitems' do
 
-  class App < Sinatra::Base
-
-    set :environment, defined?(ENVIRONMENT) ? ENVIRONMENT : :production
-
-    hit_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
-
-    #
-    # set root
-
-    set(:root, File.join(hit_dir, 'www'))
-
-    #
-    # load conf
-
-    conf_dir = File.join(hit_dir, 'conf')
-
-    [
-      File.join(conf_dir, "#{environment}.rb"),
-      File.join(conf_dir, 'common.rb')
-    ].each { |path| configure { eval(File.read(path)) } }
-
-    #
-    # initialize engine
-
-    Engine = engine_class.new(engine_options)
-
-    #
-    # participants
-
-    # TODO
-
-    #
-    # load resources code
-
-    res_dir = File.join(hit_dir, *%w[ lib ruote hit resources ])
-
-    Dir[File.join(res_dir, '*.rb')].each { |path| load(path) }
+    'all the workitems'
   end
-end
 end
 

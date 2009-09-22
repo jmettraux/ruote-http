@@ -23,28 +23,16 @@
 #++
 
 
-class Ruote::Sin::App
+class Ruote::Http::App
 
-  get '/processes' do
+  get '/history' do
 
-    ps = Engine.processes
-
-    "processes : #{ps.size}"
+    'all the history (pagination ???)'
   end
 
-  post '/processes' do
+  get '/history/:wfid' do
 
-    'a new process'
-  end
-
-  get '/processes/:wfid' do
-
-    'that process'
-  end
-
-  get '/processes/:wfid/errors' do
-
-    'that process\'s errors'
+    'history of that process (who may be dead)'
   end
 end
 
