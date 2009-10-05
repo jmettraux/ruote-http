@@ -19,7 +19,7 @@ class ProcessesTest < Test::Unit::TestCase
 
     get '/processes'
     assert last_response.ok?
-    assert_equal 'processes : 0', last_response.body
+    assert_equal '{ links : [], content: [] }', last_response.body
   end
 end
 

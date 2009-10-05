@@ -25,26 +25,13 @@
 
 class Ruote::Http::App
 
-  get '/processes' do
+  helpers do
 
-    ps = Engine.processes
+    def render_format
 
-    "processes : #{ps.size}"
-  end
-
-  post '/processes' do
-
-    'a new process'
-  end
-
-  get '/processes/:wfid' do
-
-    'that process'
-  end
-
-  get '/processes/:wfid/errors' do
-
-    'that process\'s errors'
+      accept = env['HTTP_ACCEPT']
+      accept && accept.match('html') ? 'html' : 'json'
+    end
   end
 end
 

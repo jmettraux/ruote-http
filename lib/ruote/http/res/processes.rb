@@ -22,59 +22,27 @@
 # Made in Japan.
 #++
 
-require 'sinatra'
 
+class Ruote::Http::App
 
-module Ruote
-module Http
+  get '/processes' do
 
-  class App < Sinatra::Base
-
-    set :environment, defined?(ENVIRONMENT) ? ENVIRONMENT : :production
-
-    ht_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
-
-    #
-    # set root
-
-    set(:root, File.join(ht_dir, 'www'))
-
-    #
-    # load conf
-
-    conf_dir = File.join(ht_dir, 'conf')
-
-    [
-      File.join(conf_dir, "#{environment}.rb"),
-      File.join(conf_dir, 'common.rb')
-    ].each { |path| configure { eval(File.read(path)) } }
-
-    #
-    # initialize engine
-
-    Engine = engine_class.new(engine_options)
-
-    #
-    # participants
-
-    # TODO
-
-    #
-    # load reply / representations code
-
-    load(File.join(ht_dir, *%w[ lib ruote http render.rb ]))
-
-    rep_dir = File.join(ht_dir, *%w[ lib ruote http rep ])
-
-    Dir[File.join(rep_dir, '*.rb')].each { |path| load(path) }
-
-    #
-    # load resources code
-
-    res_dir = File.join(ht_dir, *%w[ lib ruote http res ])
-
-    Dir[File.join(res_dir, '*.rb')].each { |path| load(path) }
+    render_processes Engine.processes
   end
-end
+
+  post '/processes' do
+
+    'a new process'
+  end
+
+  get '/processes/:wfid' do
+
+    render_process Engine.process(params[:wfid])
+  end
+
+  #get '/processes/:wfid/errors' do
+  #end
+    #
+    # simply get /processes/:wfid
 end
 

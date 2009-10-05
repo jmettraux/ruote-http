@@ -22,59 +22,16 @@
 # Made in Japan.
 #++
 
-require 'sinatra'
 
+class Ruote::Http::App
 
-module Ruote
-module Http
+  helpers do
 
-  class App < Sinatra::Base
+    def render_processes (processes)
 
-    set :environment, defined?(ENVIRONMENT) ? ENVIRONMENT : :production
-
-    ht_dir = File.expand_path(File.join(File.dirname(__FILE__), *%w[ .. ] * 3))
-
-    #
-    # set root
-
-    set(:root, File.join(ht_dir, 'www'))
-
-    #
-    # load conf
-
-    conf_dir = File.join(ht_dir, 'conf')
-
-    [
-      File.join(conf_dir, "#{environment}.rb"),
-      File.join(conf_dir, 'common.rb')
-    ].each { |path| configure { eval(File.read(path)) } }
-
-    #
-    # initialize engine
-
-    Engine = engine_class.new(engine_options)
-
-    #
-    # participants
-
-    # TODO
-
-    #
-    # load reply / representations code
-
-    load(File.join(ht_dir, *%w[ lib ruote http render.rb ]))
-
-    rep_dir = File.join(ht_dir, *%w[ lib ruote http rep ])
-
-    Dir[File.join(rep_dir, '*.rb')].each { |path| load(path) }
-
-    #
-    # load resources code
-
-    res_dir = File.join(ht_dir, *%w[ lib ruote http res ])
-
-    Dir[File.join(res_dir, '*.rb')].each { |path| load(path) }
+      processes.inspect
+    end
   end
 end
-end
+
 
