@@ -19,4 +19,20 @@ require 'rack/test'
 ENVIRONMENT = :test
 
 require 'ruote/http/app'
+require 'ruote/util/json'
+
+
+module Rack::Test::Methods
+
+  def engine
+    app::Engine
+  end
+end
+
+class Rack::MockResponse
+
+  def json_body
+    Ruote::Json.decode(body)
+  end
+end
 

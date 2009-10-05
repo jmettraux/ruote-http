@@ -27,9 +27,16 @@ class Ruote::Http::App
 
   helpers do
 
-    def render_processes (processes)
+    rendering_for :processes
 
-      processes.inspect
+    def render_processes_json (processes)
+
+      to_json(:processes, processes.collect { |ps| ps.to_h })
+    end
+
+    def render_processes_html (processes)
+
+      raise "implement me !"
     end
   end
 end

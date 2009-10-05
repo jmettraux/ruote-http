@@ -23,6 +23,7 @@
 #++
 
 require 'sinatra'
+require 'json'
 
 
 module Ruote

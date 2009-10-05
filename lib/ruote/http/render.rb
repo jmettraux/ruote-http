@@ -27,10 +27,40 @@ class Ruote::Http::App
 
   helpers do
 
-    def render_format
+    def self.rendering_for (res)
+
+      eval %{
+        def render_#{res} (o)
+          send('render_#{res}_' + rformat, o)
+        end
+      }
+    end
+
+    def rformat
 
       accept = env['HTTP_ACCEPT']
       accept && accept.match('html') ? 'html' : 'json'
+    end
+
+    def link (href, rel)
+
+      { 'href' => href, 'rel' => rel }
+    end
+
+    def links (res)
+
+      pi = env['PATH_INFO']
+      ro = pi[0..pi.rindex('/')]
+
+      [
+        link(ro, 'http://ruote.rubyforge.org/ruote-http.html#root'),
+        link(pi, 'self')
+      ]
+    end
+
+    def to_json (res, o)
+
+      { 'links' => links(res), 'content' => o }.to_json
     end
   end
 end
