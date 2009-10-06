@@ -43,13 +43,7 @@ class ProcessesTest < Test::Unit::TestCase
 
   def test_processes
 
-    pdef = Ruote.process_definition :name => 'test' do
-      nada
-    end
-
-    wfid = engine.launch(pdef)
-
-    sleep 0.400
+    wfid = launch_test_process
 
     get '/processes'
 
@@ -64,13 +58,7 @@ class ProcessesTest < Test::Unit::TestCase
 
   def test_process
 
-    pdef = Ruote.process_definition :name => 'test' do
-      nada
-    end
-
-    wfid = engine.launch(pdef)
-
-    sleep 0.400
+    wfid = launch_test_process
 
     get "/processes/#{wfid}"
 
@@ -104,6 +92,17 @@ class ProcessesTest < Test::Unit::TestCase
 
     assert_equal 1, app::Engine.processes.size
     assert_equal 1, app::Engine.processes.first.errors.size
+  end
+
+  def test_cancel_process
+
+    wfid = launch_test_process
+
+    delete "/processes/#{wfid}"
+
+    sleep 0.400
+
+    assert_equal 0, app::Engine.processes.size
   end
 end
 

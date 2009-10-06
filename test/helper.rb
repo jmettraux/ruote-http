@@ -24,14 +24,31 @@ require 'ruote/util/json'
 
 module Rack::Test::Methods
 
+  protected
+
   def engine
+
     app::Engine
+  end
+
+  def launch_test_process
+
+    pdef = Ruote.process_definition :name => 'test' do
+      nada
+    end
+
+    wfid = engine.launch(pdef)
+
+    sleep 0.400
+
+    wfid
   end
 end
 
 class Rack::MockResponse
 
   def json_body
+
     Ruote::Json.decode(body)
   end
 end

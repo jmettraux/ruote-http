@@ -74,9 +74,12 @@ class Ruote::Http::App
     # simply get /processes/:wfid
 
   delete '/processes/:wfid' do
-  end
 
-  put '/processes/:wfid' do
+    wfid = params[:wfid]
+
+    Engine.cancel_process(wfid)
+
+    "process #{wfid} cancelled."
   end
 end
 
