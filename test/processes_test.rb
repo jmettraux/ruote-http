@@ -13,9 +13,8 @@ class ProcessesTest < Test::Unit::TestCase
 
   def teardown
 
-    engine.shutdown rescue nil
-    engine.context.values.each { |s| s.purge if s.respond_to?(:purge) }
-    FileUtils.rm_rf('work_test')
+    engine.purge!
+    #FileUtils.rm_rf('work_test')
   end
 
   def app
@@ -74,7 +73,12 @@ class ProcessesTest < Test::Unit::TestCase
       pdef.to_json,
       { 'CONTENT_TYPE' => 'application/json;charset=utf-8' })
 
-    p last_response
+    assert_match /^\/processes\/.+$/, last_response.headers['Location']
+
+    sleep 0.400
+
+    assert_equal 1, app::Engine.processes.size
+    assert_equal 1, app::Engine.processes.first.errors.size
   end
 end
 

@@ -27,53 +27,9 @@ class Ruote::Http::App
 
   helpers do
 
-    RELDOC = 'http://ruote.rubyforge.org/rels.html'
+    def get_input
 
-    def rel (fragment)
-
-      "#{RELDOC}#{fragment}"
-    end
-
-    def self.rendering_for (res)
-
-      eval %{
-        def render_#{res} (o)
-
-          f = rformat
-
-          if f == 'json'
-            content_type 'application/json', :charset => 'utf-8'
-          else
-            content_type 'text/html', :charset => 'utf-8'
-          end
-
-          send('render_#{res}_' + f, o)
-        end
-      }
-    end
-
-    def rformat
-
-      accept = env['HTTP_ACCEPT']
-      accept && accept.match('html') ? 'html' : 'json'
-    end
-
-    def link (href, rel)
-
-      { 'href' => href, 'rel' => rel }
-    end
-
-    def links (res)
-
-      pi = env['PATH_INFO']
-      ro = pi[0..pi.rindex('/')]
-
-      [ link(ro, rel('#root')), link(pi, 'self') ]
-    end
-
-    def to_json (res, o)
-
-      { 'links' => links(res), 'content' => o }.to_json
+      Ruote::Json.decode(env['rack.input'].read)
     end
   end
 end

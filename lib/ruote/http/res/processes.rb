@@ -32,11 +32,35 @@ class Ruote::Http::App
 
   post '/processes' do
 
-    #p env
-    p parse_body
-    puts '=' * 80
+    o = get_input
 
-    'nada!'
+    wfid = if o.is_a?(Array)
+      # process definition
+
+      Engine.launch(o)
+
+    elsif o.is_a?(Hash)
+      # launchitem
+
+      nil
+
+    elsif o.is_a?(String)
+      # process definition URI
+
+      nil
+
+    else
+      # :(
+
+      raise "argh!"
+
+    end
+
+    status 201
+    headers 'Location' => "/processes/#{wfid}"
+      # TODO : too absolute !!
+
+    "process #{wfid} launched."
   end
 
   get '/processes/:wfid' do
