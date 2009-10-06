@@ -33,10 +33,11 @@ class ProcessesTest < Test::Unit::TestCase
     assert_equal 2, h.size
     assert_equal [], h['content']
 
-    assert_equal([
-      {"href"=>"/", "rel"=>"http://ruote.rubyforge.org/rels.html#root"},
-      {"href"=>"/processes", "rel"=>"self"}
-    ], h['links'])
+    assert_equal 5, h['links'].size
+
+    assert_equal(
+      {"href"=>"/processes", "rel"=>"self"},
+      h['links'].select { |h| h['rel'] == 'self' }.first)
 
     assert_equal 'application/json;charset=utf-8', last_response.content_type
   end
@@ -67,10 +68,11 @@ class ProcessesTest < Test::Unit::TestCase
     h = last_response.json_body
     #p h
 
-    assert_equal([
-      {"href"=>"/", "rel"=>"http://ruote.rubyforge.org/rels.html#root"},
-      {"href"=>"/processes/#{wfid}", "rel"=>"self"}
-    ], h['links'])
+    assert_equal 5, h['links'].size
+
+    assert_equal(
+      {"href"=>"/processes/#{wfid}", "rel"=>"self"},
+      h['links'].select { |h| h['rel'] == 'self' }.first)
 
     assert_equal Hash, h['content'].class
   end

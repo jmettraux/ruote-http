@@ -27,7 +27,7 @@ class Ruote::Http::App
 
   get '/' do
 
-    'root'
+    render_index(nil)
   end
 end
 
