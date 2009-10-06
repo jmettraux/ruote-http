@@ -31,9 +31,13 @@ class ProcessesTest < Test::Unit::TestCase
 
     h = last_response.json_body
 
-    assert_equal(
-      {"links"=>[{"href"=>"/", "rel"=>"http://ruote.rubyforge.org/ruote-http.html#root"}, {"href"=>"/processes", "rel"=>"self"}], "content"=>[]},
-      h)
+    assert_equal 2, h.size
+    assert_equal [], h['content']
+
+    assert_equal([
+      {"href"=>"/", "rel"=>"http://ruote.rubyforge.org/rels.html#root"},
+      {"href"=>"/processes", "rel"=>"self"}
+    ], h['links'])
   end
 
   def test_processes

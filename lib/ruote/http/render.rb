@@ -27,6 +27,8 @@ class Ruote::Http::App
 
   helpers do
 
+    RELDOC = 'http://ruote.rubyforge.org/rels.html'
+
     def self.rendering_for (res)
 
       eval %{
@@ -52,10 +54,7 @@ class Ruote::Http::App
       pi = env['PATH_INFO']
       ro = pi[0..pi.rindex('/')]
 
-      [
-        link(ro, 'http://ruote.rubyforge.org/ruote-http.html#root'),
-        link(pi, 'self')
-      ]
+      [ link(ro, "#{RELDOC}#root"), link(pi, 'self') ]
     end
 
     def to_json (res, o)
