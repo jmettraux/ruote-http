@@ -33,7 +33,16 @@ class Ruote::Http::App
 
       eval %{
         def render_#{res} (o)
-          send('render_#{res}_' + rformat, o)
+
+          f = rformat
+
+          if f == 'json'
+            content_type 'application/json', :charset => 'utf-8'
+          else
+            content_type 'text/html', :charset => 'utf-8'
+          end
+
+          send('render_#{res}_' + f, o)
         end
       }
     end

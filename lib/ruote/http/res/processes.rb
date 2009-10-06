@@ -32,7 +32,11 @@ class Ruote::Http::App
 
   post '/processes' do
 
-    'a new process'
+    #p env
+    p parse_body
+    puts '=' * 80
+
+    'nada!'
   end
 
   get '/processes/:wfid' do

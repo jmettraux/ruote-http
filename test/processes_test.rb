@@ -38,6 +38,8 @@ class ProcessesTest < Test::Unit::TestCase
       {"href"=>"/", "rel"=>"http://ruote.rubyforge.org/rels.html#root"},
       {"href"=>"/processes", "rel"=>"self"}
     ], h['links'])
+
+    assert_equal 'application/json;charset=utf-8', last_response.content_type
   end
 
   def test_processes
@@ -59,6 +61,20 @@ class ProcessesTest < Test::Unit::TestCase
 
     assert_equal 1, h['content'].size
     assert_equal wfid, h['content'].first['wfid']
+  end
+
+  def test_launch_process
+
+    pdef = Ruote.process_definition :name => 'test' do
+      nada
+    end
+
+    post(
+      '/processes',
+      pdef.to_json,
+      { 'CONTENT_TYPE' => 'application/json;charset=utf-8' })
+
+    p last_response
   end
 end
 

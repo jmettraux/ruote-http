@@ -63,8 +63,6 @@ module Http
     #
     # load reply / representations code
 
-    load(File.join(ht_dir, *%w[ lib ruote http render.rb ]))
-
     rep_dir = File.join(ht_dir, *%w[ lib ruote http rep ])
 
     Dir[File.join(rep_dir, '*.rb')].each { |path| load(path) }
