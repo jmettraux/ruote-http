@@ -27,6 +27,7 @@ class Ruote::Http::App
 
   helpers do
 
+    rendering_for :process
     rendering_for :processes
 
     def render_processes_json (processes)
@@ -35,6 +36,16 @@ class Ruote::Http::App
     end
 
     def render_processes_html (processes)
+
+      raise "implement me !"
+    end
+
+    def render_process_json (process)
+
+      to_json(:process, process.to_h)
+    end
+
+    def render_process_html (process)
 
       raise "implement me !"
     end

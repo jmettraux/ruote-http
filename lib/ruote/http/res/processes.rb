@@ -27,7 +27,7 @@ class Ruote::Http::App
 
   get '/processes' do
 
-    render_processes Engine.processes
+    render_processes(Engine.processes)
   end
 
   post '/processes' do
@@ -65,12 +65,18 @@ class Ruote::Http::App
 
   get '/processes/:wfid' do
 
-    render_process Engine.process(params[:wfid])
+    render_process(Engine.process(params[:wfid]))
   end
 
   #get '/processes/:wfid/errors' do
   #end
     #
     # simply get /processes/:wfid
+
+  delete '/processes/:wfid' do
+  end
+
+  put '/processes/:wfid' do
+  end
 end
 

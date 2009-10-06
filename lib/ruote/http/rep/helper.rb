@@ -65,10 +65,7 @@ class Ruote::Http::App
 
     def links (res)
 
-      pi = env['PATH_INFO']
-      ro = pi[0..pi.rindex('/')]
-
-      [ link(ro, rel('#root')), link(pi, 'self') ]
+      [ link('/', rel('#root')), link(env['PATH_INFO'], 'self') ]
     end
 
     def to_json (res, o)

@@ -62,6 +62,31 @@ class ProcessesTest < Test::Unit::TestCase
     assert_equal wfid, h['content'].first['wfid']
   end
 
+  def test_process
+
+    pdef = Ruote.process_definition :name => 'test' do
+      nada
+    end
+
+    wfid = engine.launch(pdef)
+
+    sleep 0.400
+
+    get "/processes/#{wfid}"
+
+    assert last_response.ok?
+
+    h = last_response.json_body
+    #p h
+
+    assert_equal([
+      {"href"=>"/", "rel"=>"http://ruote.rubyforge.org/rels.html#root"},
+      {"href"=>"/processes/#{wfid}", "rel"=>"self"}
+    ], h['links'])
+
+    assert_equal Hash, h['content'].class
+  end
+
   def test_launch_process
 
     pdef = Ruote.process_definition :name => 'test' do
