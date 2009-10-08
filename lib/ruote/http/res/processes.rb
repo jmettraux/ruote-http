@@ -34,6 +34,8 @@ class Ruote::Http::App
 
     o = get_input
 
+    # TODO : remember, with some JSON parsers only {} is OK on the outside...
+
     wfid = if o.is_a?(Array)
       # process definition
 
