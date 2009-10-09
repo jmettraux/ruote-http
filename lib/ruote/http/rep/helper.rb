@@ -65,15 +65,24 @@ class Ruote::Http::App
 
     def links (res)
 
-      [
+      # TODO : site prefix ?
+
+      links = [
         link('/', rel('#root')),
         link('/processes', rel('#processes')),
-        link('/history', rel('#history')),
+        link('/history', rel('#histories')),
         link('/workitems', rel('#workitems')),
-        link(env['PATH_INFO'], 'self')
+        link(request.fullpath, 'self')
       ]
 
-      # TODO : if res == ...
+      links << link(
+        "/history/#{params[:wfid]}", rel('#history')
+      ) if res == :process
+      links << link(
+        "/process/#{params[:wfid]}", rel('#process')
+      ) if res == :history
+
+      links
     end
 
     def to_json (res, o)

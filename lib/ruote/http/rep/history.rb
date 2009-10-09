@@ -25,14 +25,30 @@
 
 class Ruote::Http::App
 
-  get '/history' do
+  helpers do
 
-    render_histories([])
-  end
+    rendering_for :history
+    rendering_for :histories
 
-  get '/history/:wfid' do
+    def render_history_json (records)
 
-    render_history(Engine.process_history(params[:wfid]))
+      to_json(:history, records.collect { |r| r.to_h })
+    end
+
+    def render_history_html (records)
+
+      raise 'implement me !'
+    end
+
+    def render_histories_json (records)
+
+      to_json(:histories, records.collect { |r| r.to_h })
+    end
+
+    def render_histories_html (records)
+
+      raise 'implement me !'
+    end
   end
 end
 

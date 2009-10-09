@@ -42,6 +42,14 @@ class ProcessesTest < Test::Unit::TestCase
     assert_equal 'application/json;charset=utf-8', last_response.content_type
   end
 
+  def test_processes_slash
+
+    get '/processes/'
+
+    assert last_response.ok?
+    assert_equal [], last_response.json_body['content']
+  end
+
   def test_processes
 
     wfid = launch_test_process
@@ -68,11 +76,14 @@ class ProcessesTest < Test::Unit::TestCase
     h = last_response.json_body
     #p h
 
-    assert_equal 5, h['links'].size
+    assert_equal 6, h['links'].size
 
     assert_equal(
       {"href"=>"/processes/#{wfid}", "rel"=>"self"},
       h['links'].select { |h| h['rel'] == 'self' }.first)
+    assert_equal(
+      "/history/#{wfid}",
+      h['links'].select { |h| h['rel'].match(/#history$/) }.first['href'])
 
     assert_equal Hash, h['content'].class
   end

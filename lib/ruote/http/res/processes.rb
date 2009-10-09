@@ -30,6 +30,11 @@ class Ruote::Http::App
     render_processes(Engine.processes)
   end
 
+  get '/processes/' do
+
+    render_processes(Engine.processes)
+  end
+
   post '/processes' do
 
     o = get_input
