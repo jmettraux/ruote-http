@@ -70,13 +70,13 @@ class Ruote::Http::App
       links = [
         link('/', rel('#root')),
         link('/processes', rel('#processes')),
-        link('/history', rel('#histories')),
+        link('/history', rel('#history')),
         link('/workitems', rel('#workitems')),
         link(request.fullpath, 'self')
       ]
 
       links << link(
-        "/history/#{params[:wfid]}", rel('#history')
+        "/history/#{params[:wfid]}", rel('#process_history')
       ) if res == :process
       links << link(
         "/process/#{params[:wfid]}", rel('#process')

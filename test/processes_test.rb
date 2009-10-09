@@ -83,7 +83,7 @@ class ProcessesTest < Test::Unit::TestCase
       h['links'].select { |h| h['rel'] == 'self' }.first)
     assert_equal(
       "/history/#{wfid}",
-      h['links'].select { |h| h['rel'].match(/#history$/) }.first['href'])
+      h['links'].select { |h| h['rel'].match(/#process_history$/) }.first['href'])
 
     assert_equal Hash, h['content'].class
   end

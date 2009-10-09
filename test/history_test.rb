@@ -42,7 +42,7 @@ class HistoryTest < Test::Unit::TestCase
     assert_equal(
       '/history',
       last_response.json_body['links'].select { |l|
-        l['rel'] == 'http://ruote.rubyforge.org/rels.html#histories'
+        l['rel'] == 'http://ruote.rubyforge.org/rels.html#history'
       }.first['href'])
 
     assert_equal [], last_response.json_body['content']
