@@ -89,6 +89,7 @@ class ProcessesTest < Test::Unit::TestCase
       { 'CONTENT_TYPE' => 'application/json;charset=utf-8' })
 
     assert_match /^\/processes\/.+$/, last_response.headers['Location']
+    assert_match /^process .+ launched\.$/, last_response.json_body['content']
 
     sleep 0.400
 

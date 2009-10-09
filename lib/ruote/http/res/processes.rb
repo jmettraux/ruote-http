@@ -62,7 +62,7 @@ class Ruote::Http::App
     headers 'Location' => "/processes/#{wfid}"
       # TODO : too absolute !!
 
-    "process #{wfid} launched."
+    render_message("process #{wfid} launched.")
   end
 
   get '/processes/:wfid' do

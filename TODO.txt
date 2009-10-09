@@ -3,3 +3,5 @@
 
 [ ] ?nolinks=true ?
 
+[ ] html_safe / safe for string !!
+
