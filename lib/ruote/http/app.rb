@@ -46,19 +46,20 @@ module Http
     conf_dir = File.join(ht_dir, 'conf')
 
     [
-      File.join(conf_dir, "#{environment}.rb"),
-      File.join(conf_dir, 'common.rb')
-    ].each { |path| configure { eval(File.read(path)) } }
+      "#{environment}.rb", 'common.rb'
+    ].each { |fn|
+      configure { eval(File.read(File.join(conf_dir, fn))) }
+    }
 
     #
     # initialize engine
 
-    Engine = engine_class.new(engine_options)
+    eval(File.read(File.join(conf_dir, 'engine.rb')))
 
     #
     # participants
 
-    # TODO
+    eval(File.read(File.join(conf_dir, 'participants.rb')))
 
     #
     # load reply / representations code
