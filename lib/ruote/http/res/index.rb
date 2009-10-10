@@ -23,11 +23,25 @@
 #++
 
 
+require 'ruote/util/mem'
+
+
 class Ruote::Http::App
 
   get '/' do
 
     render_index(nil)
+  end
+
+  get '/stats' do
+
+    a = Ruote::Mem.count
+    m = Ruote::Mem.ps
+    a.unshift(m)
+
+    content_type 'text/plain'
+
+    a.collect { |o| o.inspect }.join("\n")
   end
 end
 
