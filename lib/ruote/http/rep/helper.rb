@@ -92,6 +92,13 @@ class Ruote::Http::App
 
       h.to_json
     end
+
+    # Escaping HTML...
+    #
+    def h (s)
+
+      Rack::Utils.escape_html (s)
+    end
   end
 end
 
