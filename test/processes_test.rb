@@ -103,6 +103,12 @@ class ProcessesTest < Test::Unit::TestCase
 
     delete "/processes/#{wfid}"
 
+    assert last_response.ok?
+
+    assert_equal(
+      "process #{wfid} cancelled.",
+      last_response.json_body['content'])
+
     sleep 0.400
 
     assert_equal 0, engine.processes.size
