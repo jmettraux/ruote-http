@@ -11,17 +11,6 @@ require File.join(File.dirname(__FILE__), 'helper.rb')
 class IndexTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  def teardown
-
-    engine.purge!
-    #FileUtils.rm_rf('work_test')
-  end
-
-  def app
-
-    Ruote::Http::App
-  end
-
   def test_processes_empty
 
     get '/'

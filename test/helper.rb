@@ -10,6 +10,8 @@ $:.unshift(ht_lib) unless $:.include?(ht_lib)
 
 ruote_lib = File.expand_path(File.join(%w[ ~ w ruota lib ]))
 $:.unshift(ruote_lib) unless $:.include?(ruote_lib)
+  #
+  # TODO : ruote !
 
 #require 'rubygems'
 
@@ -24,11 +26,33 @@ require 'ruote/util/json'
 
 module Rack::Test::Methods
 
+  def setup
+
+    conf_dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'conf'))
+
+    app.instance_eval do
+      eval(File.read(File.join(conf_dir, 'engine.rb')))
+      eval(File.read(File.join(conf_dir, 'participants.rb')))
+    end
+  end
+
+  def teardown
+
+    engine.shutdown
+    engine.history.clear!
+    FileUtils.rm_rf('work_test/') rescue nil
+  end
+
   protected
+
+  def app
+
+    Ruote::Http::App
+  end
 
   def engine
 
-    app::Engine
+    app.engine
   end
 
   def launch_test_process

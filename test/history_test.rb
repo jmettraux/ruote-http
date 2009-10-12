@@ -11,17 +11,6 @@ require File.join(File.dirname(__FILE__), 'helper.rb')
 class HistoryTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  def teardown
-
-    engine.purge!
-    #FileUtils.rm_rf('work_test')
-  end
-
-  def app
-
-    Ruote::Http::App
-  end
-
   def test_history_empty
 
     get '/history'
@@ -52,6 +41,9 @@ class HistoryTest < Test::Unit::TestCase
 
     wfid = launch_test_process
 
+    p wfid
+    puts `ls -al work_test/log/`
+
     get "/history/#{wfid}"
 
     assert last_response.ok?
@@ -73,9 +65,11 @@ class HistoryTest < Test::Unit::TestCase
 
     get '/history'
 
+    #p last_response.body
+
     assert last_response.ok?
 
-    p last_response.body
+    flunk
   end
 end
 

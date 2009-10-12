@@ -27,12 +27,12 @@ class Ruote::Http::App
 
   get '/history' do
 
-    render_histories([])
+    render_histories(engine.history_by_date(Time.now))
   end
 
   get '/history/:wfid' do
 
-    render_history(Engine.process_history(params[:wfid]))
+    render_history(engine.process_history(params[:wfid]))
   end
 end
 

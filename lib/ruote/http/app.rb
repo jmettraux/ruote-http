@@ -54,6 +54,13 @@ module Http
     #
     # initialize engine
 
+    def self.engine
+      @engine
+    end
+    def engine
+      self.class.instance_variable_get(:@engine)
+    end
+
     eval(File.read(File.join(conf_dir, 'engine.rb')))
 
     #

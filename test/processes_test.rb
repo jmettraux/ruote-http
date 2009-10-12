@@ -11,17 +11,6 @@ require File.join(File.dirname(__FILE__), 'helper.rb')
 class ProcessesTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
-  def teardown
-
-    engine.purge!
-    #FileUtils.rm_rf('work_test')
-  end
-
-  def app
-
-    Ruote::Http::App
-  end
-
   def test_processes_empty
 
     get '/processes'
@@ -104,8 +93,8 @@ class ProcessesTest < Test::Unit::TestCase
 
     sleep 0.400
 
-    assert_equal 1, app::Engine.processes.size
-    assert_equal 1, app::Engine.processes.first.errors.size
+    assert_equal 1, engine.processes.size
+    assert_equal 1, engine.processes.first.errors.size
   end
 
   def test_cancel_process
@@ -116,7 +105,7 @@ class ProcessesTest < Test::Unit::TestCase
 
     sleep 0.400
 
-    assert_equal 0, app::Engine.processes.size
+    assert_equal 0, engine.processes.size
   end
 end
 

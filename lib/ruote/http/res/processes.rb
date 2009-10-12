@@ -27,12 +27,12 @@ class Ruote::Http::App
 
   get '/processes' do
 
-    render_processes(Engine.processes)
+    render_processes(engine.processes)
   end
 
   get '/processes/' do
 
-    render_processes(Engine.processes)
+    render_processes(engine.processes)
   end
 
   post '/processes' do
@@ -44,7 +44,7 @@ class Ruote::Http::App
     wfid = if o.is_a?(Array)
       # process definition
 
-      Engine.launch(o)
+      engine.launch(o)
 
     elsif o.is_a?(Hash)
       # launchitem
@@ -72,7 +72,7 @@ class Ruote::Http::App
 
   get '/processes/:wfid' do
 
-    render_process(Engine.process(params[:wfid]))
+    render_process(engine.process(params[:wfid]))
   end
 
   #get '/processes/:wfid/errors' do
@@ -84,9 +84,9 @@ class Ruote::Http::App
 
     wfid = params[:wfid]
 
-    Engine.cancel_process(wfid)
+    engine.cancel_process(wfid)
 
-    "process #{wfid} cancelled."
+    render_message("process #{wfid} cancelled.")
   end
 end
 
