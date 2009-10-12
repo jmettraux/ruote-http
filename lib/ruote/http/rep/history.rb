@@ -28,7 +28,17 @@ class Ruote::Http::App
   helpers do
 
     rendering_for :history
-    rendering_for :histories
+    rendering_for :process_history
+
+    def render_process_history_json (records)
+
+      to_json(:process_history, records.collect { |r| r.to_h })
+    end
+
+    def render_process_history_html (records)
+
+      raise 'implement me !'
+    end
 
     def render_history_json (records)
 
@@ -36,16 +46,6 @@ class Ruote::Http::App
     end
 
     def render_history_html (records)
-
-      raise 'implement me !'
-    end
-
-    def render_histories_json (records)
-
-      to_json(:histories, records.collect { |r| r.to_h })
-    end
-
-    def render_histories_html (records)
 
       raise 'implement me !'
     end

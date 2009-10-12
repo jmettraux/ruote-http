@@ -43,6 +43,8 @@ class HistoryTest < Test::Unit::TestCase
 
     get "/history/#{wfid}"
 
+    #p last_response.json_body
+
     assert last_response.ok?
 
     assert_equal(

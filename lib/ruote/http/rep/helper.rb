@@ -78,9 +78,10 @@ class Ruote::Http::App
       links << link(
         "/history/#{params[:wfid]}", rel('#process_history')
       ) if res == :process
+
       links << link(
         "/process/#{params[:wfid]}", rel('#process')
-      ) if res == :history
+      ) if res == :process_history
 
       links
     end
