@@ -41,9 +41,6 @@ class HistoryTest < Test::Unit::TestCase
 
     wfid = launch_test_process
 
-    p wfid
-    puts `ls -al work_test/log/`
-
     get "/history/#{wfid}"
 
     assert last_response.ok?
@@ -65,11 +62,23 @@ class HistoryTest < Test::Unit::TestCase
 
     get '/history'
 
-    #p last_response.body
+    assert last_response.ok?
+    assert_equal 2, last_response.json_body['content'].size
+  end
+
+  def test_history_date
+
+    wfid = launch_test_process
+
+    get "/history/#{Time.now.strftime('%F')}"
 
     assert last_response.ok?
+    assert_equal 2, last_response.json_body['content'].size
 
-    flunk
+    get "/history/#{(Time.now + 60 * 60 * 25).strftime('%F')}"
+
+    assert last_response.ok?
+    assert_equal 0, last_response.json_body['content'].size
   end
 end
 

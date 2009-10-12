@@ -30,6 +30,13 @@ class Ruote::Http::App
     render_histories(engine.history_by_date(Time.now))
   end
 
+  # GET /history/2009-10-31
+  #
+  get %r|^/history/([0-9]{4}-[0-9]{2}-[0-9]{2})$| do |m|
+
+    render_histories(engine.history_by_date(Time.parse(m)))
+  end
+
   get '/history/:wfid' do
 
     render_history(engine.process_history(params[:wfid]))
