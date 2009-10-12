@@ -22,7 +22,7 @@ class HistoryTest < Test::Unit::TestCase
     Ruote::Http::App
   end
 
-  def test_histories_empty
+  def test_history_empty
 
     get '/history'
 
@@ -31,7 +31,7 @@ class HistoryTest < Test::Unit::TestCase
     assert_equal [], last_response.json_body['content']
   end
 
-  def test_history_missing
+  def test_process_history_missing
 
     get '/history/20013-nada'
 
@@ -42,13 +42,13 @@ class HistoryTest < Test::Unit::TestCase
     assert_equal(
       '/history',
       last_response.json_body['links'].select { |l|
-        l['rel'] == 'http://ruote.rubyforge.org/rels.html#history'
+        l['rel'] == 'http://ruote.rubyforge.org/rel.html#history'
       }.first['href'])
 
     assert_equal [], last_response.json_body['content']
   end
 
-  def test_history
+  def test_process_history
 
     wfid = launch_test_process
 
@@ -59,7 +59,7 @@ class HistoryTest < Test::Unit::TestCase
     assert_equal(
       "/process/#{wfid}",
       last_response.json_body['links'].select { |l|
-        l['rel'] == 'http://ruote.rubyforge.org/rels.html#process'
+        l['rel'] == 'http://ruote.rubyforge.org/rel.html#process'
       }.first['href'])
 
     assert_equal(
@@ -67,15 +67,15 @@ class HistoryTest < Test::Unit::TestCase
       last_response.json_body['content'].last['message'])
   end
 
-  def test_histories
-
-    flunk
+  def test_history
 
     wfid = launch_test_process
 
     get '/history'
 
-    # ...
+    assert last_response.ok?
+
+    p last_response.body
   end
 end
 

@@ -27,7 +27,7 @@ class Ruote::Http::App
 
   helpers do
 
-    RELDOC = 'http://ruote.rubyforge.org/rels.html'
+    RELDOC = 'http://ruote.rubyforge.org/rel.html'
 
     def rel (fragment)
 
