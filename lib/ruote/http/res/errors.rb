@@ -25,13 +25,10 @@
 
 class Ruote::Http::App
 
-  get '/errors' do
+  get '/errors/:wfid/:expid' do
   end
 
-  get '/errors/:wfid' do
-  end
-
-  get '/errors/:full_wfid/:expid' do
+  delete '/errors/:wfid/:expid' do
   end
 end
 

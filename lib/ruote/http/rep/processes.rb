@@ -32,7 +32,7 @@ class Ruote::Http::App
 
     def render_processes_json (processes)
 
-      to_json(:processes, processes.collect { |ps| ps.to_h })
+      to_hash(processes.collect { |ps| ps.to_h }).to_json
     end
 
     def render_processes_html (processes)
@@ -42,7 +42,11 @@ class Ruote::Http::App
 
     def render_process_json (process)
 
-      to_json(:process, process.to_h)
+      h = to_hash(process.to_h)
+
+      h['links'] << link("/history/#{params[:wfid]}", rel('#process_history'))
+
+      h.to_json
     end
 
     def render_process_html (process)

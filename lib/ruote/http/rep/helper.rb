@@ -63,11 +63,13 @@ class Ruote::Http::App
       { 'href' => href, 'rel' => rel }
     end
 
-    def links (res, o)
+    def to_hash (content)
 
       # TODO : site prefix ?
 
-      links = [
+      h = {}
+
+      h['links'] = [
         link('/', rel('#root')),
         link('/processes', rel('#processes')),
         link('/history', rel('#history')),
@@ -75,33 +77,9 @@ class Ruote::Http::App
         link(request.fullpath, 'self')
       ]
 
-      links << link(
-        "/history/#{params[:wfid]}", rel('#process_history')
-      ) if res == :process
+      h['content'] = content if content
 
-      links << link(
-        "/process/#{params[:wfid]}", rel('#process')
-      ) if res == :process_history
-
-      if res == :history_range
-        links << link(
-          "/history/#{o.first.strftime('%F')}", rel('#history_last'))
-        links << link(
-          "/history/#{o.last.strftime('%F')}", rel('#history_first'))
-      end
-
-      links
-    end
-
-    def to_json (res, o)
-
-      h = { 'links' => links(res, o) }
-
-      o = nil if res == :history_range
-
-      h['content'] = o unless o.nil?
-
-      h.to_json
+      h
     end
 
     # Escaping HTML...
