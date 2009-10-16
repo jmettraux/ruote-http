@@ -28,6 +28,7 @@ class Ruote::Http::App
   helpers do
 
     rendering_for :history
+    rendering_for :history_range
     rendering_for :process_history
 
     def render_process_history_json (records)
@@ -46,6 +47,16 @@ class Ruote::Http::App
     end
 
     def render_history_html (records)
+
+      raise 'implement me !'
+    end
+
+    def render_history_range_json (range)
+
+      to_json(:history_range, range)
+    end
+
+    def render_history_range_html (range)
 
       raise 'implement me !'
     end

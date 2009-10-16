@@ -30,6 +30,11 @@ class Ruote::Http::App
     render_history(engine.history.by_date(Time.now))
   end
 
+  get '/history/range' do
+
+    render_history_range(engine.history.range)
+  end
+
   # GET /history/2009-10-31
   #
   get %r|^/history/([0-9]{4}-[0-9]{2}-[0-9]{2})$| do |m|

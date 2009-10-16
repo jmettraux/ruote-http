@@ -20,6 +20,28 @@ class HistoryTest < Test::Unit::TestCase
     assert_equal [], last_response.json_body['content']
   end
 
+  def test_history_range
+
+    get '/history/range'
+
+    assert last_response.ok?
+    assert_equal 7, last_response.json_body['links'].size
+
+    assert_equal(
+      "/history/#{Time.now.strftime('%F')}",
+      last_response.json_body['links'].select { |l|
+        l['rel'] == 'http://ruote.rubyforge.org/rel.html#history_first'
+      }.first['href'])
+
+    assert_equal(
+      "/history/#{Time.now.strftime('%F')}",
+      last_response.json_body['links'].select { |l|
+        l['rel'] == 'http://ruote.rubyforge.org/rel.html#history_last'
+      }.first['href'])
+
+    assert_equal nil, last_response.json_body['content']
+  end
+
   def test_process_history_missing
 
     get '/history/20013-nada'

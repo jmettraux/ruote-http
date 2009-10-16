@@ -63,7 +63,7 @@ class Ruote::Http::App
       { 'href' => href, 'rel' => rel }
     end
 
-    def links (res)
+    def links (res, o)
 
       # TODO : site prefix ?
 
@@ -83,12 +83,22 @@ class Ruote::Http::App
         "/process/#{params[:wfid]}", rel('#process')
       ) if res == :process_history
 
+      if res == :history_range
+        links << link(
+          "/history/#{o.first.strftime('%F')}", rel('#history_last'))
+        links << link(
+          "/history/#{o.last.strftime('%F')}", rel('#history_first'))
+      end
+
       links
     end
 
     def to_json (res, o)
 
-      h = { 'links' => links(res) }
+      h = { 'links' => links(res, o) }
+
+      o = nil if res == :history_range
+
       h['content'] = o unless o.nil?
 
       h.to_json
