@@ -33,7 +33,7 @@ class Ruote::Http::App
 
     def render_process_history_json (records)
 
-      h = to_hash(records.collect { |r| r.to_h })
+      h = to_hash('history', records.collect { |r| r.to_h })
 
       h['links'] << link("/process/#{params[:wfid]}", rel('#process'))
 
@@ -47,7 +47,7 @@ class Ruote::Http::App
 
     def render_history_json (records)
 
-      to_hash(records.collect { |r| r.to_h }).to_json
+      to_hash('history', records.collect { |r| r.to_h }).to_json
     end
 
     def render_history_html (records)
@@ -57,7 +57,7 @@ class Ruote::Http::App
 
     def render_history_range_json (range)
 
-      h = to_hash(nil)
+      h = to_hash('history_range', nil)
 
       h['links'] << link(
         "/history/#{range.first.strftime('%F')}", rel('#history_last'))

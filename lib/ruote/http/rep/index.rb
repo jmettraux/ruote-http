@@ -31,7 +31,7 @@ class Ruote::Http::App
 
     def render_index_json (o)
 
-      to_hash(nil).to_json
+      to_hash('index', nil).to_json
     end
 
     def render_index_html (o)

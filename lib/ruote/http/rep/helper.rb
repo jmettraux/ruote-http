@@ -63,7 +63,7 @@ class Ruote::Http::App
       { 'href' => href, 'rel' => rel }
     end
 
-    def to_hash (content)
+    def to_hash (resource_name, content)
 
       # TODO : site prefix ?
 
@@ -77,7 +77,7 @@ class Ruote::Http::App
         link(request.fullpath, 'self')
       ]
 
-      h['content'] = content if content
+      h[resource_name] = content if content
 
       h
     end

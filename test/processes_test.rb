@@ -20,7 +20,7 @@ class ProcessesTest < Test::Unit::TestCase
     h = last_response.json_body
 
     assert_equal 2, h.size
-    assert_equal [], h['content']
+    assert_equal [], h['processes']
 
     assert_equal 5, h['links'].size
 
@@ -36,7 +36,7 @@ class ProcessesTest < Test::Unit::TestCase
     get '/processes/'
 
     assert last_response.ok?
-    assert_equal [], last_response.json_body['content']
+    assert_equal [], last_response.json_body['processes']
   end
 
   def test_processes
@@ -50,8 +50,8 @@ class ProcessesTest < Test::Unit::TestCase
     h = last_response.json_body
     #p h
 
-    assert_equal 1, h['content'].size
-    assert_equal wfid, h['content'].first['wfid']
+    assert_equal 1, h['processes'].size
+    assert_equal wfid, h['processes'].first['wfid']
   end
 
   def test_process
@@ -74,7 +74,7 @@ class ProcessesTest < Test::Unit::TestCase
       "/history/#{wfid}",
       h['links'].select { |h| h['rel'].match(/#process_history$/) }.first['href'])
 
-    assert_equal Hash, h['content'].class
+    assert_equal Hash, h['process'].class
   end
 
   def test_launch_process
@@ -89,7 +89,7 @@ class ProcessesTest < Test::Unit::TestCase
       { 'CONTENT_TYPE' => 'application/json;charset=utf-8' })
 
     assert_match /^\/processes\/.+$/, last_response.headers['Location']
-    assert_match /^process .+ launched\.$/, last_response.json_body['content']
+    assert_match /^process .+ launched\.$/, last_response.json_body['message']
 
     sleep 0.400
 
@@ -107,7 +107,7 @@ class ProcessesTest < Test::Unit::TestCase
 
     assert_equal(
       "process #{wfid} cancelled.",
-      last_response.json_body['content'])
+      last_response.json_body['message'])
 
     sleep 0.400
 

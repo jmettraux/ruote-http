@@ -17,7 +17,7 @@ class HistoryTest < Test::Unit::TestCase
 
     assert last_response.ok?
     assert_equal 5, last_response.json_body['links'].size
-    assert_equal [], last_response.json_body['content']
+    assert_equal [], last_response.json_body['history']
   end
 
   def test_history_range
@@ -39,7 +39,7 @@ class HistoryTest < Test::Unit::TestCase
         l['rel'] == 'http://ruote.rubyforge.org/rel.html#history_last'
       }.first['href'])
 
-    assert_equal nil, last_response.json_body['content']
+    assert_equal nil, last_response.json_body['history_range']
   end
 
   def test_process_history_missing
@@ -56,7 +56,7 @@ class HistoryTest < Test::Unit::TestCase
         l['rel'] == 'http://ruote.rubyforge.org/rel.html#history'
       }.first['href'])
 
-    assert_equal [], last_response.json_body['content']
+    assert_equal [], last_response.json_body['history']
   end
 
   def test_process_history
@@ -77,7 +77,7 @@ class HistoryTest < Test::Unit::TestCase
 
     assert_equal(
       "RuntimeError unknown expression 'nada'",
-      last_response.json_body['content'].last['message'])
+      last_response.json_body['history'].last['message'])
   end
 
   def test_history
@@ -87,7 +87,7 @@ class HistoryTest < Test::Unit::TestCase
     get '/history'
 
     assert last_response.ok?
-    assert_equal 2, last_response.json_body['content'].size
+    assert_equal 2, last_response.json_body['history'].size
   end
 
   def test_history_date
@@ -97,12 +97,12 @@ class HistoryTest < Test::Unit::TestCase
     get "/history/#{Time.now.strftime('%F')}"
 
     assert last_response.ok?
-    assert_equal 2, last_response.json_body['content'].size
+    assert_equal 2, last_response.json_body['history'].size
 
     get "/history/#{(Time.now + 60 * 60 * 25).strftime('%F')}"
 
     assert last_response.ok?
-    assert_equal 0, last_response.json_body['content'].size
+    assert_equal 0, last_response.json_body['history'].size
   end
 end
 

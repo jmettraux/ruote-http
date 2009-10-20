@@ -31,7 +31,7 @@ class Ruote::Http::App
 
     def render_message_json (msg)
 
-      to_hash(msg).to_json
+      to_hash('message', msg).to_json
     end
 
     def render_message_html (msg)
