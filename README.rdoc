@@ -1,3 +1,7 @@
 
 = ruote-http
 
+This is just a prototype. The real stuff is at
+
+http://github.com/kennethkalmer/ruote-kit
+
